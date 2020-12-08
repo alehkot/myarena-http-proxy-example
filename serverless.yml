@@ -1,0 +1,25 @@
+service: myarena-http-proxy
+
+frameworkVersion: '2'
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  apiGateway:
+    shouldStartNameWithService: true
+
+functions:
+  time:
+    handler: handler.time
+    events:
+      - http:
+          path: time/{id}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
